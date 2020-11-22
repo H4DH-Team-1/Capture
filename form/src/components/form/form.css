@@ -1,0 +1,10 @@
+.formborder {
+  border-radius: 5px;
+  border: 5px solid lightslategray;
+  background-color: lightslategray;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+}
