@@ -3,9 +3,21 @@ import React from "react";
 import WebCam from "../webcam/webcam";
 import "./form.css";
 
+import { v4 } from "uuid";
+
 class Form extends React.Component {
   constructor(props) {
     super(props);
+    let maskId = null;
+    if (props.maskId)
+    {
+      maskId = props.maskId;
+    }
+    else
+    {
+      //generate a random UUID for the purpose of demo if one is not passed in
+      maskId = v4(); 
+    }
     this.state = {
       name: "",
       phone: "",
@@ -45,11 +57,34 @@ class Form extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    alert(
-      `Hello, you have the following details on the form ${this.state.name} \n ${this.state.phone} \n ${this.state.postCode}`
-    );
-    // Simple POST request with a JSON body using fetch
-    fetch(
+    let errorMessage = '';
+    if (!this.state.name)
+    {
+      errorMessage += 'Name must be supplied';
+    }
+    if (!this.state.phone)
+    {
+      errorMessage += 'Phone must be supplied';
+    }
+    if (!this.state.postCode)
+    {
+      errorMessage += 'Post Code must be supplied';
+    }
+    if (!this.state.image)
+    {
+      errorMessage += 'A photo must be supplied';
+    }
+    if (!this.state.maskId)
+    {
+      errorMessage += 'A Mask ID must be supplied - you may need to reload the page by scanning the QR again';
+    }
+
+    if (errorMessage && errorMessage.length > 0)
+    {
+      alert(`Please correct the following and try again: ${errorMessage}`);
+    }
+    else{
+      fetch(
       "https://n4xy6udiic.execute-api.ap-southeast-2.amazonaws.com/dev/checkin",
       {
         method: "POST",
@@ -57,18 +92,29 @@ class Form extends React.Component {
         body: JSON.stringify({
           name: this.state.name,
           phone: this.state.phone,
-          postCode: this.state.postCode,
+          postcode: this.state.postCode, //note in API the C is lower case..
           image: this.state.image,
           maskId: this.state.maskId,
         }),
       }
     )
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({ result: data.success });
-        console.log("the result is", this.state.result);
-        console.log("The result from API is ", data.body);
+    .then((response) => response.json())
+    .then((data) => {
+        this.setState({ result: data.reponse.success });
+        console.log("the result is succesful: ", this.state.result);
+        console.log("The result from API is ", JSON.stringify(data));
+        if (this.state.result)
+        {
+          //TODO: we should use react to make this a nice message on the screen and clear the form.
+          //We don't want them to be able to submit more than once becuase the MaskID must be unique.
+          alert(`Thank you for checking in, enjoy your visit!`);
+        }
+        else
+        {
+          alert(`There was a problem checking you in, please see your friendly checkin staff for assistance`);
+        }
       });
+    }
   }
 
   render() {
