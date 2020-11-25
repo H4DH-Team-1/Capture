@@ -14,6 +14,7 @@ class WebCam extends React.Component {
   takeScreenShot(e) {
     e.preventDefault();
   }
+
   /* capture = React.useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImgSrc(imageSrc);
@@ -33,6 +34,7 @@ class WebCam extends React.Component {
   capture = () => {
     const imageSrc = this.webcam.getScreenshot();
     this.setState({ image: imageSrc });
+    this.props.onChange(imageSrc);
   };
 
   render() {
@@ -44,7 +46,7 @@ class WebCam extends React.Component {
 
     return (
       <div className="row my-3 pt-3">
-        <label className="col-3 my-3 pt-3">Picture: </label>
+        <label className="col-3 ">Picture: </label>
         <Webcam
           audio={false}
           height={350}

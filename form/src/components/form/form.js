@@ -6,16 +6,26 @@ import "./form.css";
 class Form extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { userName: "", phone: "", postCode: "", errors: {} };
+    this.state = {
+      name: "",
+      phone: "",
+      postCode: "",
+      maskId: "xyz",
+      image: "",
+      result: "",
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handlePhoneChange = this.handlePhoneChange.bind(this);
     this.handlePostCodeChange = this.handlePostCodeChange.bind(this);
+    this.handleImageChange = this.handleImageChange.bind(this);
   }
+
+  componentDidMount() {}
 
   handleNameChange(e) {
     this.setState({
-      userName: e.target.value,
+      name: e.target.value,
     });
   }
   handlePhoneChange(e) {
@@ -28,14 +38,41 @@ class Form extends React.Component {
       postCode: e.target.value,
     });
   }
+
+  handleImageChange(img) {
+    console.log("image changed");
+    this.setState({ image: img });
+  }
   handleSubmit(e) {
     e.preventDefault();
     alert(
-      `Hello, you have the following details on the form ${this.state.userName} \n ${this.state.phone} \n ${this.state.postCode}`
+      `Hello, you have the following details on the form ${this.state.name} \n ${this.state.phone} \n ${this.state.postCode}`
     );
+    // Simple POST request with a JSON body using fetch
+    fetch(
+      "https://n4xy6udiic.execute-api.ap-southeast-2.amazonaws.com/dev/checkin",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: this.state.name,
+          phone: this.state.phone,
+          postCode: this.state.postCode,
+          image: this.state.image,
+          maskId: this.state.maskId,
+        }),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({ result: data.success });
+        console.log("the result is", this.state.result);
+        console.log("The result from API is ", data.body);
+      });
   }
 
   render() {
+    const { postCode } = this.state;
     return (
       <form onSubmit={this.handleSubmit} className="formborder">
         <div className="row pt-3 my-3">
@@ -61,11 +98,11 @@ class Form extends React.Component {
           <input
             type="text"
             className="form-control col-5"
-            value={this.state.postCode}
+            value={postCode}
             onChange={this.handlePostCodeChange}
           />
         </div>
-        <WebCam />
+        <WebCam onChange={this.handleImageChange} />
         <div className="row centered">
           <button type="submit" value="Submit" className="btn btn-info col-5">
             Submit
