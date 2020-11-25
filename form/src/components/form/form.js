@@ -100,10 +100,10 @@ class Form extends React.Component {
     )
     .then((response) => response.json())
     .then((data) => {
+        console.log("The result from API is ", data);
         this.setState({ result: data.response.success });
-        console.log("the result is succesful: ", this.state.result);
-        console.log("The result from API is ", JSON.stringify(data));
-        if (this.state.result)
+        console.log("the result is succesful: ", data.response.success);
+        if (data.response.success)
         {
           //TODO: we should use react to make this a nice message on the screen and clear the form.
           //We don't want them to be able to submit more than once becuase the MaskID must be unique.
