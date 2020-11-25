@@ -22,7 +22,7 @@ class Form extends React.Component {
       name: "",
       phone: "",
       postCode: "",
-      maskId: "xyz",
+      maskId: maskId,
       image: "",
       result: "",
     };
@@ -100,7 +100,7 @@ class Form extends React.Component {
     )
     .then((response) => response.json())
     .then((data) => {
-        this.setState({ result: data.reponse.success });
+        this.setState({ result: data.response.success });
         console.log("the result is succesful: ", this.state.result);
         console.log("The result from API is ", JSON.stringify(data));
         if (this.state.result)
