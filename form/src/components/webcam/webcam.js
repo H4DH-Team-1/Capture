@@ -35,6 +35,7 @@ class WebCam extends React.Component {
     const imageSrc = this.webcam.getScreenshot();
     this.setState({ image: imageSrc });
     this.props.onChange(imageSrc);
+    return false;
   };
 
   render() {
@@ -56,7 +57,7 @@ class WebCam extends React.Component {
           videoConstraints={videoConstraints}
           className="col-5"
         />
-        <button className="col-2 my-3" onClick={this.capture} style={h}>
+        <button type="button" className="col-2 my-3" onClick={this.capture} style={h}>
           Capture photo
         </button>
         <img src={this.state.image} />
