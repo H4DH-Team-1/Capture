@@ -2,7 +2,7 @@ import React from "react";
 import Webcam from "react-webcam";
 
 const h = {
-  height: 100,
+  height: 90,
   top: 30,
 };
 class WebCam extends React.Component {
@@ -16,18 +16,6 @@ class WebCam extends React.Component {
     e.preventDefault();
   }
 
-  /* capture = React.useCallback(() => {
-    const imageSrc = webcamRef.current.getScreenshot();
-    setImgSrc(imageSrc);
-  }, [webcamRef, setImgSrc]);
-
-  render() {
-    return (
-      <div>
-        <Webcam value={this.state.snapShot} onChange={this.takeScreenShot} />
-      </div>
-    );
-  } */
   setRef = (webcam) => {
     this.webcam = webcam;
   };
@@ -48,8 +36,8 @@ class WebCam extends React.Component {
 
     return (
       <div>
-        <div className="row">
-          <label className="col-3 pt-3 my-3">Picture: </label>
+        <label className="row">Picture: </label>
+        <div class="row">
           <Webcam
             audio={false}
             height={350}
@@ -57,11 +45,11 @@ class WebCam extends React.Component {
             screenshotFormat="image/jpeg"
             width={550}
             videoConstraints={videoConstraints}
-            className="col-5"
+            className="col-6"
           />
           <button
             type="button"
-            className="col-2 my-3 pt-3"
+            className="col-3"
             onClick={this.capture}
             style={h}
           >
@@ -69,8 +57,7 @@ class WebCam extends React.Component {
           </button>
         </div>
         <div className="row">
-          <label className="col-3"></label>
-          <img className="col-5" src={this.state.image} />
+          <img className="col-6" src={this.state.image} />
         </div>
       </div>
     );

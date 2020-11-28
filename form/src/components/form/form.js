@@ -154,38 +154,38 @@ class Form extends React.Component {
         id="myform"
         onReset={this.resetForm}
         onSubmit={this.handleSubmit}
-        className="formborder"
+        className="formborder container"
       >
-        <div className="row pt-3 my-3">
-          <label className="col-3">Name: </label>
+        <div className="pt-3">
+          <label className="row">Name: </label>
           <input
             type="text"
-            className="form-control col-5"
+            className="form-control row"
             value={this.state.userName}
             onChange={this.handleNameChange}
           />
         </div>
-        <div className="row my-3 pt-3">
-          <label className="col-3">Phone: </label>
+        <div className=" pt-3">
+          <label className="row">Phone: </label>
           <input
             type="tel"
-            className="form-control col-5"
+            className="form-control row"
             value={this.state.phone}
             onChange={this.handlePhoneChange}
           />
         </div>
-        <div className="row my-3 pt-3">
-          <label className="col-3">Post Code: </label>
+        <div className="pt-3">
+          <label className="row">Post Code: </label>
           <input
             type="text"
-            className="form-control col-5"
+            className="form-control row"
             value={postCode}
             onChange={this.handlePostCodeChange}
             onBlur={this.displayStaticInfo}
           />
-          <p className="col-3">{message}</p>
+          <p className="row">{message}</p>
         </div>
-        <div className="row my-3 pt-3">
+        <div className=" row my-3 pt-3">
           <label className="col-3"> Influenza Vaccination </label>
           <div className="col-2 yes">
             <label className="col-1"> Yes </label>
@@ -232,9 +232,13 @@ class Form extends React.Component {
           </div>
         </div>
         <WebCam onChange={this.handleImageChange} />
-        <div className="row my-3">
-          <label className="col-3"></label>
-          <button type="submit" value="Submit" className="btn btn-info col-5">
+        <div className=" my-3">
+          <label className="row"></label>
+          <button
+            type="submit"
+            value="Submit"
+            className="btn btn-info btn-block row"
+          >
             Submit
           </button>
         </div>

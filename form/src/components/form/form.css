@@ -2,6 +2,7 @@
   border-radius: 5px;
   border: 5px solid lightslategray;
   background-color: lightslategray;
+  justify-content: center;
 }
 
 .centered {
