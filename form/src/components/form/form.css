@@ -8,3 +8,10 @@
   display: flex;
   justify-content: center;
 }
+input:active {
+  outline: none;
+}
+.yes {
+  display: flex;
+  flex-direction: row;
+}

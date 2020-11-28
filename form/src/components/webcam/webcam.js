@@ -3,6 +3,7 @@ import Webcam from "react-webcam";
 
 const h = {
   height: 100,
+  top: 30,
 };
 class WebCam extends React.Component {
   constructor(props) {
@@ -46,21 +47,31 @@ class WebCam extends React.Component {
     };
 
     return (
-      <div className="row my-3 pt-3">
-        <label className="col-3 ">Picture: </label>
-        <Webcam
-          audio={false}
-          height={350}
-          ref={this.setRef}
-          screenshotFormat="image/jpeg"
-          width={550}
-          videoConstraints={videoConstraints}
-          className="col-5"
-        />
-        <button type="button" className="col-2 my-3" onClick={this.capture} style={h}>
-          Capture photo
-        </button>
-        <img src={this.state.image} />
+      <div>
+        <div className="row">
+          <label className="col-3 pt-3 my-3">Picture: </label>
+          <Webcam
+            audio={false}
+            height={350}
+            ref={this.setRef}
+            screenshotFormat="image/jpeg"
+            width={550}
+            videoConstraints={videoConstraints}
+            className="col-5"
+          />
+          <button
+            type="button"
+            className="col-2 my-3 pt-3"
+            onClick={this.capture}
+            style={h}
+          >
+            Capture photo
+          </button>
+        </div>
+        <div className="row">
+          <label className="col-3"></label>
+          <img className="col-5" src={this.state.image} />
+        </div>
       </div>
     );
   }
